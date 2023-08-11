@@ -27,7 +27,7 @@ public class Novel {
     String desc;
 
     @TableField("volume")
-    int volume;
+    double volume;
 
     @TableField("page")
     int page;

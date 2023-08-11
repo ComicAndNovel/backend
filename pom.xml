@@ -89,6 +89,12 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.4.0</version>
 		</dependency>
+<!--		epub 解析 -->
+		<dependency>
+			<groupId>com.positiondev.epublib</groupId>
+			<artifactId>epublib-core</artifactId>
+			<version>3.1</version>
+		</dependency>
 
 	</dependencies>
 

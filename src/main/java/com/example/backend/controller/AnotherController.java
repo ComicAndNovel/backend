@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.backend.entity.Another;
 import com.example.backend.entity.RestBean;
 import com.example.backend.mapper.AnotherMapper;
+import lombok.Data;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,25 +13,40 @@ import java.io.IOException;
 import java.util.*;
 
 
+@Data
+class anotherListQuery {
+    private Integer page;
+    private Integer pageSize;
+    private String name;
+    private String originalName;
+
+    public void setPage(Integer page) {
+        this.page = page != null ? page : 1;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize != null ? pageSize : 10;
+    }
+}
+
 @RestController
 public class AnotherController {
     @Autowired
     private AnotherMapper anotherMapper;
 
-
     @PostMapping("/api/another/anotherList")
-    public RestBean<List<Another>> anotherList(@RequestParam  Map<String, Object> query) throws IOException {
+    public RestBean<List<Another>> anotherList(@RequestBody anotherListQuery query) throws IOException {
         System.out.println("开始请求");
         QueryWrapper<Another> queryWrapper = new QueryWrapper<>();
 
 //        queryWrapper.eq("id", 1);
-        Page<Another> list = anotherMapper.selectPage(Page.of(1, 10), queryWrapper);
+        Page<Another> list = anotherMapper.selectPage(Page.of(query.getPage(), query.getPageSize()), queryWrapper);
 //        List<Another> list = anotherMapper.selectList(queryWrapper);
 //            list.getTotal();
         System.out.println(list.getRecords());
-        long total = list.getTotal();
 
-        return RestBean.success(list.getRecords(),1, (int) list.getTotal(), 2);
+
+        return RestBean.success(list.getRecords(),query.getPage(), list.getTotal(), query.getPageSize());
     }
 
     @PostMapping("/api/another/save")

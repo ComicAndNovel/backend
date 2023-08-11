@@ -9,10 +9,10 @@ import lombok.Data;
 @Data
 class Pagination<T> {
         private Integer page;
-        private Integer total;
+        private long total;
         private  Integer pageSize;
         private T list;
-        public Pagination(T list, int total, int page, int pageSize) {
+        public Pagination(T list, long total, int page, int pageSize) {
             this.total = total;
             this.page = page;
             this.pageSize = pageSize;
@@ -33,7 +33,7 @@ public class RestBean<T> {
     }
 
 
-    public static <T> RestBean<T> success(T data, int page, int total, int pageSize) {
+    public static <T> RestBean<T> success(T data, int page, long total, int pageSize) {
         return (RestBean<T>) new RestBean<>(200, new Pagination(data, total, page, pageSize), "获取成功");
     }
 
@@ -41,7 +41,7 @@ public class RestBean<T> {
         return new RestBean<>(200, data, message);
     }
 
-    public static <T> RestBean<T> error(int code, String message) {
+    public static  RestBean error(int code, String message) {
         return new RestBean<>(code, null, message);
     }
 

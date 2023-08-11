@@ -1,3 +1,4 @@
+
 spring:
   servlet:
     multipart:
@@ -31,4 +32,5 @@ server:
   tomcat:
     # tomcat 请求大小 -1 表示没限制
     max-http-form-post-size: -1
+  port: 8080
 

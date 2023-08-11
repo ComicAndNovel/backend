@@ -8,11 +8,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.backend.entity.Novel;
 import com.example.backend.mapper.NovelMapper;
 import lombok.Data;
+import lombok.Setter;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.backend.entity.RestBean;
 
@@ -28,26 +27,42 @@ class SaveNovelQuery {
     private Integer page;
     private String releaseTime;
 }
+// 列表的请求参数
+@Data
+class NovelListQuery {
+    private Integer page;
+    private Integer pageSize;
+    private String name;
+    private String originalName;
+
+    public void setPage(Integer page) {
+        this.page = page != null ? page : 1;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize != null ? pageSize : 10;
+    }
+}
 
 @RestController
 public class NovelController {
   @Autowired
   private NovelMapper novelMapper;
 
-    @PostMapping("/api/novel/novelList")
-    public RestBean<List<Novel>> novelList() throws IOException {
+//    @RequestMapping
+    @RequestMapping(value = "/api/novel/novelList", method = RequestMethod.POST)
+    public RestBean<List<Novel>> novelList(@RequestBody NovelListQuery query) throws IOException {
         System.out.println("开始请求");
         QueryWrapper<Novel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("createTime");
 
-
-        Page<Novel> list = novelMapper.selectPage(Page.of(1, 10), queryWrapper);
+        Page<Novel> list = novelMapper.selectPage(Page.of(query.getPage(), query.getPageSize()), queryWrapper);
 //        List<Another> list = anotherMapper.selectList(queryWrapper);
 //            list.getTotal();
         System.out.println(list.getRecords());
-        long total = list.getTotal();
         System.out.println(list);
 
-        return RestBean.success(list.getRecords(),1, (int) list.getTotal(), 2);
+        return RestBean.success(list.getRecords(), query.getPage(), (int) list.getTotal(), query.getPageSize());
     }
 
   @PostMapping("/api/novel/save")
@@ -68,11 +83,12 @@ public class NovelController {
       System.out.println("是否存在" + find);
       if (find == null) {
           Novel novel = new Novel();
-          System.out.println("+++++");
           novel.setCover(query.getCover());
           novel.setName(query.getName());
           novel.setOriginalName(query.getOriginalName());
-          novel.setPage(query.getPage());
+          if (query.getPage() != null) {
+              novel.setPage(query.getPage());
+          }
           novel.setDesc(query.getDesc());
           novel.setVolume(query.getVolume());
           novel.setReleaseTime(query.getReleaseTime());
