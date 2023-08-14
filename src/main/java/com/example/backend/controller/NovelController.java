@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.backend.entity.Novel;
 import com.example.backend.mapper.NovelMapper;
@@ -51,16 +52,12 @@ public class NovelController {
 
 //    @RequestMapping
     @RequestMapping(value = "/api/novel/novelList", method = RequestMethod.POST)
-    public RestBean<List<Novel>> novelList(@RequestBody NovelListQuery query) throws IOException {
+    public RestBean<List<Object>> novelList(@RequestBody NovelListQuery query) throws IOException {
         System.out.println("开始请求");
-        QueryWrapper<Novel> queryWrapper = new QueryWrapper<>();
-        queryWrapper.orderByDesc("createTime");
 
-        Page<Novel> list = novelMapper.selectPage(Page.of(query.getPage(), query.getPageSize()), queryWrapper);
-//        List<Another> list = anotherMapper.selectList(queryWrapper);
-//            list.getTotal();
-        System.out.println(list.getRecords());
-        System.out.println(list);
+
+        Page<Object> page = new Page<>(query.getPage(), query.getPageSize());
+        IPage<Object> list = novelMapper.novelList(page, query);
 
         return RestBean.success(list.getRecords(), query.getPage(), (int) list.getTotal(), query.getPageSize());
     }

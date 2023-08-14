@@ -60,7 +60,13 @@
 			<artifactId>mybatis-plus-boot-starter</artifactId>
 			<version>3.5.3.1</version>
 		</dependency>
-<!--		druid 数据源 不知道干嘛用 -->
+		<dependency>
+			<groupId>com.github.yulichang</groupId>
+			<artifactId>mybatis-plus-join-boot-starter</artifactId>
+			<version>1.4.5</version>
+		</dependency>
+
+		<!--		druid 数据源 不知道干嘛用 -->
 <!--		<dependency>-->
 <!--			<groupId>com.alibaba</groupId>-->
 <!--			<artifactId>druid</artifactId>-->

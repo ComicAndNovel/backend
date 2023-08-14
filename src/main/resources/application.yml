@@ -9,7 +9,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-    url: jdbc:mysql://localhost:3306/comic_and_novel?useSSL=false
+    url: jdbc:mysql://localhost:3306/comic_and_novel?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: Apoptoxin4869
 #  web:
@@ -28,6 +28,7 @@ mybatis:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*Mapper.xml
 server:
   tomcat:
     # tomcat 请求大小 -1 表示没限制

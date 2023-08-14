@@ -6,8 +6,8 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-@TableName("another")
-public class Another {
+@TableName("author")
+public class Author {
     @TableId(type = IdType.AUTO)
     int id;
 
@@ -22,4 +22,7 @@ public class Another {
 
     @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
+
+    @TableField("countryId")
+    int countryId;
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.backend.mapper.NovelMapper">
+    <resultMap id="NovelResponse" type="com.example.backend.response.Novel">
+        <id property="id" column="id"></id>
+<!--        <id property="id" column="id"/>-->
+        <result property="id" column="id"></result>
+        <result property="cover" column="cover"></result>
+        <result property="name" column="name"></result>
+        <result property="originalName" column="originalName"></result>
+        <result property="desc" column="desc"></result>
+        <result property="volume" column="volume"></result>
+        <result property="page" column="page"></result>
+        <result property="releaseTime" column="releaseTime"></result>
+        <association property="language" javaType="com.example.backend.response.Language">
+<!--            <id property="id" column="id"></id>-->
+            <result property="id" column="languageId"></result>
+            <result property="name" column="languageName"></result>
+            <result property="code" column="code"></result>
+        </association>
+        <association property="country" javaType="com.example.backend.response.Country">
+<!--          <id property="id" column="id"></id>-->
+          <result property="id" column="countryId"></result>
+          <result property="name" column="countryName"></result>
+        </association>
+        <collection property="author" ofType="com.example.backend.response.Author">
+<!--          <id property="id" column="authorId"></id>-->
+          <result property="id" column="authorId"></result>
+          <result property="name" column="authorName"></result>
+          <result property="originalName" column="authorOriginalName"></result>
+        </collection>
+    </resultMap>
+    <select id="novelList" resultMap="NovelResponse">
+        SELECT
+            novel.id,
+            novel.cover,
+            novel.name,
+            novel.originalName,
+            novel.`desc`,
+            novel.volume,
+            novel.page,
+            novel.releaseTime,
+            country.id AS countryId,
+            country.name AS countryName,
+            author.id AS authorId,
+            author.name AS authorName,
+            author.originalName AS authorOriginalName,
+            language.id AS languageId,
+            language.name AS languageName,
+            language.code
+        FROM novel
+                 LEFT JOIN country ON novel.countryId = country.id
+                 LEFT JOIN language ON novel.languageId = language.id
+                 LEFT JOIN author_novel ON novel.id = author_novel.novelId
+                 LEFT JOIN author ON author.id = author_novel.authorId
+        <where>
+            <if test="query.name != null and !query.name.equals('')">
+                AND novel.name LIKE  concat('%', #{query.name}, '%')
+            </if>
+            <if test="query.originalName != null and !query.originalName.equals('')">
+              AND novel.originalName LIKE  concat('%', #{query.originalName}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.backend.mapper.AuthorMapper">
+  <resultMap id="AuthorResponse" type="com.example.backend.response.AuthorResponse">
+<!--    <id property="id" column="id"></id>-->
+    <result property="id" column="id"></result>
+    <result property="name" column="name"></result>
+    <result property="originalName" column="originalName"></result>
+    <association property="country" javaType="com.example.backend.response.Country">
+      <id property="id" column="id"></id>
+      <result property="id" column="countryId"></result>
+      <result property="name" column="countryName"></result>
+    </association>
+  </resultMap>
+  <select id="authorList" resultMap="AuthorResponse">
+    SELECT
+      author.id,
+      author.name,
+      author.originalName,
+      country.id as countryId,
+      country.name as countryName
+    FROM author
+        LEFT JOIN country ON author.countryId = country.id
+  </select>
+</mapper>

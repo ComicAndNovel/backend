@@ -13,6 +13,9 @@ public class Language {
 
     @TableField("name")
     String name;
+
+    @TableField("code")
+    String code;
     
     @TableField(value = "createTime", fill = FieldFill.INSERT)
     Date createTime;

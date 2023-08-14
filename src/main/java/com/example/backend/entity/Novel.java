@@ -35,6 +35,11 @@ public class Novel {
     @TableField("releaseTime")
     String releaseTime;
 
+    @TableField("countryId")
+    int countryId;
+
+    @TableField("languageId")
+    int languageId;
 
     @TableField(value = "createTime", fill = FieldFill.INSERT)
     Date createTime;
