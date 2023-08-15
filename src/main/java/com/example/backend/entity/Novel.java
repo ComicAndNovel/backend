@@ -23,7 +23,7 @@ public class Novel {
     @TableField("originalName")
     String originalName;
 
-    @TableField("'desc'")
+    @TableField("`desc`")
     String desc;
 
     @TableField("volume")

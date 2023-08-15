@@ -8,8 +8,8 @@ import lombok.Data;
 @TableName("author_novel")
 public class AuthorNovel {
     @TableField("authorId")
-    String authorId;
+    Integer authorId;
 
     @TableField("novelId")
-    String novelId;
+    Integer novelId;
 }

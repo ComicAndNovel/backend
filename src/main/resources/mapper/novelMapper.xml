@@ -66,7 +66,7 @@
                         # 根据名称 查出作者的id
                         SELECT author.id FROM author
                             LEFT JOIN author_novel ON author.id = author_novel.authorId
-                        WHERE author.NAME LIKE concat('%', #{query.authorName}, '%')
+                        WHERE author.name LIKE concat('%', #{query.authorName}, '%')
                     )
               )
             </if>
@@ -77,6 +77,8 @@
               AND novel.originalName LIKE  concat('%', #{query.originalName}, '%')
             </if>
         </where>
+        # 按添加顺序排序
+        ORDER BY novel.createTime DESC
     </select>
 <!--  小说详情 -->
   <select id="novelDetail" resultMap="NovelResponse">
@@ -103,5 +105,6 @@
            LEFT JOIN author_novel ON novel.id = author_novel.novelId
            LEFT JOIN author ON author.id = author_novel.authorId
     WHERE novel.id = #{id}
+
   </select>
 </mapper>
