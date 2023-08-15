@@ -1,5 +1,6 @@
 package com.example.backend.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 //import com.example.backend.controller.NovelListQuery;
 //import com.example.backend.controller.SaveNovelQuery;
@@ -14,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface NovelMapper extends MPJBaseMapper<Novel> {
     // 所有的 curd 都已经完成了
     IPage<Object> novelList(IPage<Object> page, Object query);
+    Object novelDetail(Integer id);
 }

@@ -37,7 +37,7 @@ public class AuthorController {
     public RestBean<List<Object>> authorList(@RequestBody authorListQuery query) throws IOException {
 
       Page<Object> page = new Page<>(query.getPage(), query.getPageSize());
-        IPage<Object> list = authorMapper.authorList(page);
+        IPage<Object> list = authorMapper.authorList(page, query);
 
         return RestBean.success(list.getRecords(), query.getPage(), (int) list.getTotal(), query.getPageSize());
 

@@ -54,12 +54,54 @@
                  LEFT JOIN author_novel ON novel.id = author_novel.novelId
                  LEFT JOIN author ON author.id = author_novel.authorId
         <where>
+            <if test="query.authorName != null and !query.authorName.equals('')">
+                # 根据作者id查询出对应的小说 id
+              novel.id IN(
+                SELECT
+                    author_novel.novelId
+                FROM
+                    author_novel
+                WHERE
+                    authorId IN (
+                        # 根据名称 查出作者的id
+                        SELECT author.id FROM author
+                            LEFT JOIN author_novel ON author.id = author_novel.authorId
+                        WHERE author.NAME LIKE concat('%', #{query.authorName}, '%')
+                    )
+              )
+            </if>
             <if test="query.name != null and !query.name.equals('')">
-                AND novel.name LIKE  concat('%', #{query.name}, '%')
+                AND novel.name LIKE concat('%', #{query.name}, '%')
             </if>
             <if test="query.originalName != null and !query.originalName.equals('')">
               AND novel.originalName LIKE  concat('%', #{query.originalName}, '%')
             </if>
         </where>
     </select>
+<!--  小说详情 -->
+  <select id="novelDetail" resultMap="NovelResponse">
+    SELECT
+      novel.id,
+      novel.cover,
+      novel.name,
+      novel.originalName,
+      novel.`desc`,
+      novel.volume,
+      novel.page,
+      novel.releaseTime,
+      country.id AS countryId,
+      country.name AS countryName,
+      author.id AS authorId,
+      author.name AS authorName,
+      author.originalName AS authorOriginalName,
+      language.id AS languageId,
+      language.name AS languageName,
+      language.code
+    FROM novel
+           LEFT JOIN country ON novel.countryId = country.id
+           LEFT JOIN language ON novel.languageId = language.id
+           LEFT JOIN author_novel ON novel.id = author_novel.novelId
+           LEFT JOIN author ON author.id = author_novel.authorId
+    WHERE novel.id = #{id}
+  </select>
 </mapper>

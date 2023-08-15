@@ -10,6 +10,7 @@ import com.example.backend.entity.Novel;
 import com.example.backend.mapper.NovelMapper;
 import lombok.Data;
 import lombok.Setter;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ class NovelListQuery {
     private Integer pageSize;
     private String name;
     private String originalName;
+    private String authorName;
 
     public void setPage(Integer page) {
         this.page = page != null ? page : 1;
@@ -55,14 +57,25 @@ public class NovelController {
     public RestBean<List<Object>> novelList(@RequestBody NovelListQuery query) throws IOException {
         System.out.println("开始请求");
 
-
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.select("DISTINCT id");
         Page<Object> page = new Page<>(query.getPage(), query.getPageSize());
+
         IPage<Object> list = novelMapper.novelList(page, query);
 
         return RestBean.success(list.getRecords(), query.getPage(), (int) list.getTotal(), query.getPageSize());
     }
 
-  @PostMapping("/api/novel/save")
+    @RequestMapping(value = "/api/novel/novelDetail", method = RequestMethod.GET)
+    public RestBean<Object> novelDetail(@Param("id") Integer id) {
+        if (id == null) return  RestBean.error(-1, "小说ID不能为空");
+
+        Object data = novelMapper.novelDetail(id);
+
+        return RestBean.success(data, "获取成功");
+    }
+
+   @PostMapping("/api/novel/save")
    public RestBean<Null> save(@RequestBody SaveNovelQuery query) {
       if (query.getName() == null) return  RestBean.error(-1, "小说名称不能为空");
       if (query.getOriginalName() == null) return RestBean.error(-1, "小说原名不能为空");

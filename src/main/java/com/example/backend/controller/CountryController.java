@@ -20,7 +20,6 @@ public class CountryController {
         QueryWrapper<Country> queryWrapper = new QueryWrapper<>();
         
        List<Country> list = countryMapper.selectList(queryWrapper);
-        System.out.println(list);
        return RestBean.success(list, "获取成功");
     }
 }

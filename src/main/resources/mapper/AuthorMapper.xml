@@ -21,5 +21,13 @@
       country.name as countryName
     FROM author
         LEFT JOIN country ON author.countryId = country.id
+    <where>
+      <if test="query.name != null and !query.name.equals('')">
+        AND author.name LIKE concat('%', #{query.name}, '%')
+      </if>
+      <if test="query.originalName != null and !query.originalName.equals('')">
+        AND author.originalName LIKE  concat('%', #{query.originalName}, '%')
+      </if>
+    </where>
   </select>
 </mapper>
