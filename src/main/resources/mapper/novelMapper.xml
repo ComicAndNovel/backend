@@ -54,9 +54,10 @@
                  LEFT JOIN author_novel ON novel.id = author_novel.novelId
                  LEFT JOIN author ON author.id = author_novel.authorId
         <where>
+            novel.deleted != 1
             <if test="query.authorName != null and !query.authorName.equals('')">
                 # 根据作者id查询出对应的小说 id
-              novel.id IN(
+              AND novel.id IN(
                 SELECT
                     author_novel.novelId
                 FROM

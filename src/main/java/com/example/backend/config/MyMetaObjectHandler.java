@@ -20,6 +20,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         System.out.println(metaObject);
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "updateTime", Date.class, new Date());// 起始版本 3.3.0(推荐使用)
+//        设置默认假删除字段
+        this.strictInsertFill(metaObject, "deleted", Integer.class, 0);
     }
 
     @Override

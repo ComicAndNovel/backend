@@ -1,10 +1,7 @@
 package com.example.backend.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.*;
 import lombok.Data;
 
@@ -46,4 +43,8 @@ public class Novel {
 
     @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
+
+    @TableLogic
+    @TableField(value = "deleted", fill = FieldFill.INSERT)
+    private Integer deleted;
 }

@@ -25,4 +25,7 @@ public class Author {
 
     @TableField("countryId")
     int countryId;
+
+    @TableLogic
+    private Integer deleted;
 }
