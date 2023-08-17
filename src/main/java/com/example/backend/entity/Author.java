@@ -27,5 +27,6 @@ public class Author {
     int countryId;
 
     @TableLogic
+    @TableField(value = "deleted", fill = FieldFill.INSERT)
     private Integer deleted;
 }

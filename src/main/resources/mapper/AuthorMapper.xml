@@ -22,6 +22,7 @@
     FROM author
         LEFT JOIN country ON author.countryId = country.id
     <where>
+      author.deleted != 1
       <if test="query.name != null and !query.name.equals('')">
         AND author.name LIKE concat('%', #{query.name}, '%')
       </if>
