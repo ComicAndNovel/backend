@@ -9,10 +9,10 @@ import lombok.Data;
 @Data
 @TableName("author_novel")
 public class AuthorNovel {
-    @TableField("authorId")
+    @TableField("author_id")
     Integer authorId;
 
-    @TableField("novelId")
+    @TableField("novel_id")
     Integer novelId;
 
     @TableLogic

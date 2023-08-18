@@ -14,17 +14,17 @@ public class Author {
     @TableField("name")
     String name;
     
-    @TableField("originalName")
+    @TableField("original_name")
     String originalName;
 
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+    @TableField("country_id")
+    int countryId;
+
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     Date createTime;
 
-    @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
-
-    @TableField("countryId")
-    int countryId;
 
     @TableLogic
     @TableField(value = "deleted", fill = FieldFill.INSERT)

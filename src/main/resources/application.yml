@@ -7,10 +7,10 @@ spring:
       # 文件上传最大大小
       max-file-size: -1
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/comic_and_novel?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: Apoptoxin4869
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/comic_and_novel?useSSL=false&allowPublicKeyRetrieval=true
+    username: postgres
+    password: 123456
 #  web:
 #    resources:
 #      # 自定义404异常
@@ -23,7 +23,7 @@ mybatis:
     # add      新增表/新增字段/新增索引/新增唯一约束的功能，不做做修改和删除 (只在版本1.0.9.RELEASE及以上支持)。
     auto: update
   database:
-    type: mysql
+    type: postgresql
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

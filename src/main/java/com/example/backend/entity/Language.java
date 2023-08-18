@@ -16,10 +16,10 @@ public class Language {
 
     @TableField("code")
     String code;
-    
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     Date createTime;
 
-    @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
 }

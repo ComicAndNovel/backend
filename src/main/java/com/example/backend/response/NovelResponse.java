@@ -25,7 +25,7 @@ class Novel {
     private String cover;
     private String name;
     private String originalName;
-    private String  desc;
+    private String  description;
     private  Double volume;
     private Integer page;
     private String releaseTime;

@@ -5,7 +5,7 @@
 <!--    <id property="id" column="id"></id>-->
     <result property="id" column="id"></result>
     <result property="name" column="name"></result>
-    <result property="originalName" column="originalName"></result>
+    <result property="originalName" column="original_name"></result>
     <association property="country" javaType="com.example.backend.response.Country">
       <id property="id" column="id"></id>
       <result property="id" column="countryId"></result>
@@ -16,18 +16,18 @@
     SELECT
       author.id,
       author.name,
-      author.originalName,
+      author.original_name,
       country.id as countryId,
       country.name as countryName
     FROM author
-        LEFT JOIN country ON author.countryId = country.id
+        LEFT JOIN country ON author.country_id = country.id
     <where>
       author.deleted != 1
       <if test="query.name != null and !query.name.equals('')">
         AND author.name LIKE concat('%', #{query.name}, '%')
       </if>
       <if test="query.originalName != null and !query.originalName.equals('')">
-        AND author.originalName LIKE  concat('%', #{query.originalName}, '%')
+        AND author."original_name" LIKE  concat('%', #{query.originalName}, '%')
       </if>
     </where>
   </select>

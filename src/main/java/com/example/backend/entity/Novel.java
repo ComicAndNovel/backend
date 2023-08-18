@@ -16,12 +16,12 @@ public class Novel {
 
     @TableField("name")
     String name;
-    
-    @TableField("originalName")
+
+    @TableField("original_name")
     String originalName;
 
-    @TableField("`desc`")
-    String desc;
+    @TableField("description")
+    String description;
 
     @TableField("volume")
     double volume;
@@ -29,19 +29,19 @@ public class Novel {
     @TableField("page")
     int page;
 
-    @TableField("releaseTime")
+    @TableField("release_time")
     String releaseTime;
 
-    @TableField("countryId")
+    @TableField("country_id")
     int countryId;
 
-    @TableField("languageId")
+    @TableField("language_id")
     int languageId;
 
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     Date createTime;
 
-    @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
 
     @TableLogic

@@ -8,7 +8,7 @@
         <result property="cover" column="cover"></result>
         <result property="name" column="name"></result>
         <result property="originalName" column="originalName"></result>
-        <result property="desc" column="desc"></result>
+        <result property="description" column="description"></result>
         <result property="volume" column="volume"></result>
         <result property="page" column="page"></result>
         <result property="releaseTime" column="releaseTime"></result>
@@ -31,42 +31,42 @@
         </collection>
     </resultMap>
     <select id="novelList" resultMap="NovelResponse">
-        SELECT
-            novel.id,
-            novel.cover,
-            novel.name,
-            novel.originalName,
-            novel.`desc`,
-            novel.volume,
-            novel.page,
-            novel.releaseTime,
-            country.id AS countryId,
-            country.name AS countryName,
-            author.id AS authorId,
-            author.name AS authorName,
-            author.originalName AS authorOriginalName,
-            language.id AS languageId,
-            language.name AS languageName,
-            language.code
-        FROM novel
-                 LEFT JOIN country ON novel.countryId = country.id
-                 LEFT JOIN language ON novel.languageId = language.id
-                 LEFT JOIN author_novel ON novel.id = author_novel.novelId
-                 LEFT JOIN author ON author.id = author_novel.authorId
+      SELECT
+        novel.id,
+        novel.cover,
+        novel.name,
+        novel.original_name,
+        novel.description,
+        novel.volume,
+        novel.page,
+        novel.release_time,
+        country.id AS countryId,
+        country.name AS countryName,
+        author.id AS authorId,
+        author.name AS authorName,
+        author.original_name AS authorOriginalName,
+        language.id AS languageId,
+        language.name AS languageName,
+        language.code
+      FROM novel
+        LEFT JOIN country ON novel.country_id = country.id
+        LEFT JOIN language ON novel.language_id = language.id
+        LEFT JOIN author_novel ON novel.id = author_novel.novel_id
+        LEFT JOIN author ON author.id = author_novel.author_id
         <where>
             novel.deleted != 1
             <if test="query.authorName != null and !query.authorName.equals('')">
-                # 根据作者id查询出对应的小说 id
+                -- 根据作者id查询出对应的小说 id
               AND novel.id IN(
                 SELECT
-                    author_novel.novelId
+                    author_novel.novel_id
                 FROM
                     author_novel
                 WHERE
-                    authorId IN (
-                        # 根据名称 查出作者的id
+                    author_id IN (
+                        -- 根据名称 查出作者的id
                         SELECT author.id FROM author
-                            LEFT JOIN author_novel ON author.id = author_novel.authorId
+                            LEFT JOIN author_novel ON author.id = author_novel.author_id
                         WHERE author.name LIKE concat('%', #{query.authorName}, '%')
                     )
               )
@@ -75,11 +75,11 @@
                 AND novel.name LIKE concat('%', #{query.name}, '%')
             </if>
             <if test="query.originalName != null and !query.originalName.equals('')">
-              AND novel.originalName LIKE  concat('%', #{query.originalName}, '%')
+              AND novel.original_name LIKE  concat('%', #{query.originalName}, '%')
             </if>
         </where>
-        # 按添加顺序排序
-        ORDER BY novel.createTime DESC
+        -- 按添加顺序排序
+        ORDER BY novel.create_time DESC
     </select>
 <!--  小说详情 -->
   <select id="novelDetail" resultMap="NovelResponse">
@@ -87,24 +87,24 @@
       novel.id,
       novel.cover,
       novel.name,
-      novel.originalName,
-      novel.`desc`,
+      novel.original_name AS originalName,
+      novel.description,
       novel.volume,
       novel.page,
-      novel.releaseTime,
+      novel.release_time,
       country.id AS countryId,
       country.name AS countryName,
       author.id AS authorId,
       author.name AS authorName,
-      author.originalName AS authorOriginalName,
+      author.original_name AS authorOriginalName,
       language.id AS languageId,
       language.name AS languageName,
       language.code
     FROM novel
-           LEFT JOIN country ON novel.countryId = country.id
-           LEFT JOIN language ON novel.languageId = language.id
-           LEFT JOIN author_novel ON novel.id = author_novel.novelId
-           LEFT JOIN author ON author.id = author_novel.authorId
+        LEFT JOIN country ON novel.country_id = country.id
+        LEFT JOIN language ON novel.language_id = language.id
+        LEFT JOIN author_novel ON novel.id = author_novel.novel_id
+        LEFT JOIN author ON author.id = author_novel.author_id
     WHERE novel.id = #{id}
 
   </select>

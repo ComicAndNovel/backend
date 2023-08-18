@@ -15,11 +15,9 @@ public class Country {
     @TableField("name")
     String name;
 
-    @JsonIgnore
-    @TableField(value = "createTime", fill = FieldFill.INSERT)
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
     Date createTime;
 
-    @JsonIgnore
-    @TableField(value = "updateTime", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
     Date updateTime;
 }

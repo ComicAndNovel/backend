@@ -5,4 +5,5 @@
 - Spring boot
 - Spring Security
 - mybatis plus
-- MYSQL
+- PostgreSQL
+[application.yml](src%2Fmain%2Fresources%2Fapplication.yml)[application.yml](src%2Fmain%2Fresources%2Fapplication.yml)

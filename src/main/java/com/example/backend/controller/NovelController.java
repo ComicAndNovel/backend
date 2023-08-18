@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,14 +51,6 @@ class NovelListQuery {
   private String name;
   private String originalName;
   private String authorName;
-
-  public void setPage (Integer page) {
-    this.page = page != null ? page : 1;
-  }
-
-  public void setPageSize (Integer pageSize) {
-    this.pageSize = pageSize != null ? pageSize : 10;
-  }
 }
 
 @RestController
@@ -120,14 +113,13 @@ public class NovelController {
     novel.setCover(query.getCover());
     novel.setName(query.getName());
     novel.setOriginalName(query.getOriginalName());
-    if (query.getPage() != null) {
-      novel.setPage(query.getPage());
-    }
-    novel.setDesc(query.getDesc());
+    if (query.getPage() != null) novel.setPage(query.getPage());
+    if (query.getCountryId() != null) novel.setCountryId(query.getCountryId());
+    if (query.getLanguageId() != null) novel.setLanguageId(query.getLanguageId());
+    novel.setDescription(query.getDesc());
     novel.setVolume(query.getVolume());
     novel.setReleaseTime(query.getReleaseTime());
-    novel.setLanguageId(query.getLanguageId());
-    novel.setCountryId(query.getCountryId());
+    novel.setUpdateTime(new Date());
 
     // 添加小说和作者的关联数据
     List<AuthorNovel> list = new ArrayList<>();
@@ -147,7 +139,7 @@ public class NovelController {
     } else {
       // 修改
       QueryWrapper updateQueryWrapper = new QueryWrapper();
-      updateQueryWrapper.eq("novelId", novel.getId());
+      updateQueryWrapper.eq("novel_id", novel.getId());
 
       novelMapper.updateById(novel);
       authorNovelService.remove(updateQueryWrapper);
@@ -163,7 +155,7 @@ public class NovelController {
     if(id == null) return RestBean.error(-1, "参数错误");
 
     QueryWrapper queryWrapper = new QueryWrapper();
-    queryWrapper.eq("novelId", id);
+    queryWrapper.eq("novel_id", id);
 
     authorNovelService.remove(queryWrapper);
     novelMapper.deleteById(id);

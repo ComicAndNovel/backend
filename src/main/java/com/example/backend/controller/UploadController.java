@@ -22,7 +22,7 @@ import java.util.*;
 @RestController
 public class UploadController {
     @PostMapping("/api/reader/upload")
-    public RestBean<List<Reader>> upload (@RequestBody Map<String, Object> query) throws IOException {
+    public RestBean<List<Reader>> upload (@RequestParam MultipartFile file) throws IOException {
 
 //        System.out.println("文件名：" + file.getOriginalFilename());
 //        System.out.println("文件大小：" + file.getSize());
@@ -30,15 +30,15 @@ public class UploadController {
 //        System.out.println(file);
 
         System.out.println("===== 调用 ======");
-        File f = new File("C:\\Users\\last order\\Documents\\Tencent Files\\2495713984\\FileRecv\\[榎宫佑][台／简&精排] NO GAME NO LIFE游戏人生 01 听说游戏玩家兄妹要征服幻想世界.epub");
-
-        InputStream in = null;
+//        File f = new File("C:\\Users\\last order\\Documents\\Tencent Files\\2495713984\\FileRecv\\[榎宫佑][台／简&精排] NO GAME NO LIFE游戏人生 01 听说游戏玩家兄妹要征服幻想世界.epub");
+//        File f = file.getResource().getFile();
+//        InputStream in = null;
 
         try {
             //从输入流当中读取epub格式文件
             EpubReader reader = new EpubReader();
-            in = new FileInputStream(f);
-            Book book = reader.readEpub(in);
+//            in = new FileInputStream(f);
+            Book book = reader.readEpub(file.getInputStream());
             //获取到书本的头部信息
             Metadata metadata = book.getMetadata();
             System.out.println("FirstTitle为："+metadata.getFirstTitle());
@@ -116,13 +116,13 @@ public class UploadController {
             e.printStackTrace();
         } finally {
             //一定要关闭资源
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                if (in != null) {
+//                    in.close();
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
         return RestBean.success(null, "获取成功");
