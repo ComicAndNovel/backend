@@ -31,4 +31,15 @@
       </if>
     </where>
   </select>
+  <select id="authorDetail" resultMap="AuthorResponse">
+    SELECT
+      author.id,
+      author.name,
+      author.original_name,
+      country.id as countryId,
+      country.name as countryName
+    FROM author
+        LEFT JOIN country ON author.country_id = country.id
+    WHERE author.id = #{id}
+  </select>
 </mapper>
