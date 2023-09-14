@@ -8,9 +8,9 @@ spring:
       max-file-size: -1
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/comic_and_novel?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:postgresql://localhost:5432/comic-and-novel?useSSL=false&allowPublicKeyRetrieval=true
     username: postgres
-    password: 123456
+    password: postgres
 #  web:
 #    resources:
 #      # 自定义404异常

@@ -9,6 +9,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface AuthorMapper extends BaseMapper<Author> {
     // 所有的 curd 都已经完成了
-    IPage<Object> authorList(IPage<Object> page, Object query);
+    IPage<Object> authorList(Object query, IPage<Object> page);
     Object authorDetail(Integer id);
 }

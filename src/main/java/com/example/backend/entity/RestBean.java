@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONWriter;
 //import com.fasterxml.jackson.core.json.JsonWriteFeature;
 //import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.Data;
+import org.apache.ibatis.jdbc.Null;
 
 @Data
 class Pagination<T> {
@@ -41,9 +42,10 @@ public class RestBean<T> {
         return new RestBean<>(200, data, message);
     }
 
-    public static  RestBean error(int code, String message) {
+    public static  RestBean error(int code, String message ) {
         return new RestBean<>(code, null, message);
     }
+
 
     public String  asJsonString() {
         return JSONObject

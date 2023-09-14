@@ -65,7 +65,24 @@
 			<artifactId>mybatis-plus-join-boot-starter</artifactId>
 			<version>1.4.5</version>
 		</dependency>
-
+<!--		html 解析 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.16.1</version>
+		</dependency>
+		<!--		uuid 生成-->
+		<dependency>
+			<groupId>com.fasterxml.uuid</groupId>
+			<artifactId>java-uuid-generator</artifactId>
+			<version>4.1.1</version>
+		</dependency>
+<!--		文件操作 -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.13.0</version>
+		</dependency>
 		<!--		druid 数据源 不知道干嘛用 -->
 <!--		<dependency>-->
 <!--			<groupId>com.alibaba</groupId>-->
